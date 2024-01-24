@@ -1,6 +1,6 @@
 import { api } from './api';
 
-export const LogInApit = async body => {
+export const LogInApi = async body => {
   const { data } = await api.post('/users/login', body);
   return data;
 };

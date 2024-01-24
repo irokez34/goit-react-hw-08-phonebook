@@ -4,5 +4,5 @@ import { selectIsLoading } from 'store/Slice/selectors';
 
 export const Loader = () => {
   const isLoading = useSelector(selectIsLoading);
-  return <>{isLoading && <span className={css.loader}></span>}</>;
+  return <div className={css.loader__container}>{isLoading && <span className={css.loader}></span>}</div>;
 };

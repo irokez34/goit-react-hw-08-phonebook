@@ -5,22 +5,9 @@ import {
   getContactsThunk,
 } from 'store/thunk/thunk';
 
-const handlePending = state => {
-  state.phoneBook.isLoading = true;
-  state.phoneBook.error = '';
-};
-const handleRejected = (state, { payload }) => {
-  state.phoneBook.isLoading = false;
-  state.phoneBook.error = payload.message;
-};
-const handleFulfilled = state => {
-  state.phoneBook.isLoading = false;
-};
 const initialState = {
   phoneBook: {
     items: [],
-    isLoading: false,
-    error: null,
   },
 };
 const phoneBookSlice = createSlice({
@@ -38,10 +25,7 @@ const phoneBookSlice = createSlice({
         state.phoneBook.items = state.phoneBook.items.filter(
           el => el.id !== payload.id
         );
-      })
-      .addMatcher(({ type }) => type.endsWith('/pending'), handlePending)
-      .addMatcher(({ type }) => type.endsWith('/rejected'), handleRejected)
-      .addMatcher(({ type }) => type.endsWith('/fulfilled'), handleFulfilled);
+      });
   },
 });
 
