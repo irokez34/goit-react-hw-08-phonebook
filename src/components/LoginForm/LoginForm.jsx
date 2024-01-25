@@ -1,6 +1,6 @@
 import css from './LoginForm.module.css';
 
-const handleSubmit = () => {
+const handleSubmit = (e) => {
   e.preventDefault();
 };
 export const LoginForm = () => {
