@@ -1,10 +1,21 @@
-const { createSlice } = require('@reduxjs/toolkit');
-const { LogInThunk, SignUpThunk, LogOutThunk } = require('store/thunk/thunk');
+const {
+  LogInThunk,
+  SignUpThunk,
+  LogOutThunk,
+
+  RefreshUserThunk,
+} = require('store/thunk/thunk');
+import { createSlice } from '@reduxjs/toolkit';
+const {
+  handleSignUp,
+  handleLogIn,
+  handleLogOut,
+  handleIsUser,
+} = require('store/Hendlers/userHendlers');
 
 const initialState = {
-  user: {
-    token: '',
-  },
+  token: '',
+  profile: null,
 };
 
 const UserSlice = createSlice({
@@ -12,16 +23,11 @@ const UserSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(LogInThunk.fulfilled, (state, { payload }) => {
-        state.user.token = payload;
-      })
-      .addCase(SignUpThunk.fulfilled, (state, { payload }) => {
-        state.user.token.push(payload);
-      })
-      .addCase(LogOutThunk.fulfilled, (state, { payload }) => {
-        state.phoneBook.items = state.phoneBook.items.filter(
-          el => el.id !== payload.id
-        );
-      });
+      .addCase(LogInThunk.fulfilled, handleLogIn)
+      .addCase(SignUpThunk.fulfilled, handleSignUp)
+      .addCase(LogOutThunk.fulfilled, handleLogOut)
+      .addCase(RefreshUserThunk.fulfilled, handleIsUser);
   },
 });
+
+export const userReducer = UserSlice.reducer;

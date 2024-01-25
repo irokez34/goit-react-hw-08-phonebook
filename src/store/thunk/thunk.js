@@ -1,14 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addNewContactApi, removeContactApi } from 'fetch/ContactsApi';
-import { getContactsApi } from 'fetch/ContactsApi';
-import { LogInApi, LogOutApi, SignUpApi } from 'fetch/UserApi';
+
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.headers.accept = '*/*';
+
+const authHeader = token => {
+  axios.defaults.headers.Authorization = `Bearer ${token}`;
+};
+const clearAuthHeader = () => {
+  axios.defaults.headers.Authorization = ``;
+};
+// ------------------------------Contacts-Thunk--------------------------//
 export const addNewContactThunk = createAsyncThunk(
   'contacts/addNewContacts',
   async (body, { rejectWithValue }) => {
     try {
-      return await addNewContactApi(body);
+      const { data } = await axios.post('/contats', body);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error); //error.message
     }
   }
 );
@@ -17,9 +28,10 @@ export const getContactsThunk = createAsyncThunk(
   'contacts/getContacts',
   async (_, { rejectWithValue }) => {
     try {
-      return await getContactsApi();
+      const { data } = await axios.get('/contacts');
+      return data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error); //error.message
     }
   }
 );
@@ -28,20 +40,25 @@ export const deleteContactThunk = createAsyncThunk(
   'contacts/deleteContacts',
   async (id, { rejectWithValue }) => {
     try {
-      return await removeContactApi(id);
+      const { data } = await axios.delete(`/contacts/${id}`);
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
+// ------------------------------Contacts-Thunk--------------------------//
 
+// ------------------------------User-Thunk--------------------------//
 export const LogInThunk = createAsyncThunk(
   'user/logIn',
   async (body, { rejectWithValue }) => {
     try {
-      return await LogInApi(body);
+      const { data } = await axios.post('/users/login', body);
+      authHeader(data.token);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data); //error.message
     }
   }
 );
@@ -50,19 +67,46 @@ export const SignUpThunk = createAsyncThunk(
   'user/signUp',
   async (newUser, { rejectWithValue }) => {
     try {
-      return await SignUpApi(newUser);
+      const { data } = await axios.post('/users/signup', newUser, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      authHeader(data.token);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data); //error.message
     }
   }
 );
 export const LogOutThunk = createAsyncThunk(
   'user/logOut',
-  async (token, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      return await LogOutApi(token);
+      const res = await axios.post('/users/logout');
+      clearAuthHeader();
+      console.log(res);
+      return res;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data); //error.message
     }
   }
 );
+export const RefreshUserThunk = createAsyncThunk(
+  'user/current',
+  async (_, API) => {
+    const state = API.getState();
+    const persistedToken = state.user.token;
+    if (persistedToken === null) {
+      return API.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      const { data } = await axios.get('/users/current');
+      return data;
+    } catch (error) {
+      return API.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// ------------------------------User-Thunk--------------------------//
