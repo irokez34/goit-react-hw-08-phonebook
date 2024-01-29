@@ -20,4 +20,5 @@ export const selectVisibleContacts = createSelector(
 // ------------------User-Selectors--------------------//
 export const selectIsAuth = state => state.user.token;
 export const selectUser = state => state.user.profile;
-
+export const selectIsLoggedIn = state => state.user.isLoggedIn;
+export const selectIsRefreshing = state => state.user.isRefreshing;

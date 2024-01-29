@@ -16,7 +16,8 @@ export const addNewContactThunk = createAsyncThunk(
   'contacts/addNewContacts',
   async (body, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/contats', body);
+      const { data } = await axios.post('/contacts', body);
+      console.log('work');
       return data;
     } catch (error) {
       return rejectWithValue(error); //error.message
@@ -75,6 +76,7 @@ export const SignUpThunk = createAsyncThunk(
       authHeader(data.token);
       return data;
     } catch (error) {
+      console.log(error);
       return rejectWithValue(error.response.data); //error.message
     }
   }
@@ -85,7 +87,6 @@ export const LogOutThunk = createAsyncThunk(
     try {
       const res = await axios.post('/users/logout');
       clearAuthHeader();
-      console.log(res);
       return res;
     } catch (error) {
       return rejectWithValue(error.response.data); //error.message
@@ -101,10 +102,11 @@ export const RefreshUserThunk = createAsyncThunk(
       return API.rejectWithValue('Unable to fetch user');
     }
     try {
-      const { data } = await axios.get('/users/current');
-      return data;
+      authHeader(persistedToken);
+      const res = await axios.get('/users/current');
+      return res.data;
     } catch (error) {
-      return API.rejectWithValue(error.response.data);
+      return API.rejectWithValue(error.message);
     }
   }
 );

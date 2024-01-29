@@ -2,9 +2,12 @@ import css from './LoginForm.module.css';
 
 export const LoginForm = ({ login }) => {
   const handleSubmit = e => {
+    const form = e.currentTarget;
+
     const { email, password } = e.target.elements;
     login({ email: email.value, password: password.value });
     e.preventDefault();
+    form.reset();
   };
 
   return (

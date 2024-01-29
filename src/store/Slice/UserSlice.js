@@ -1,3 +1,4 @@
+import { createSlice } from '@reduxjs/toolkit';
 const {
   LogInThunk,
   SignUpThunk,
@@ -5,17 +6,18 @@ const {
 
   RefreshUserThunk,
 } = require('store/thunk/thunk');
-import { createSlice } from '@reduxjs/toolkit';
 const {
   handleSignUp,
   handleLogIn,
   handleLogOut,
-  handleIsUser,
+  handleRefreshUser,
 } = require('store/Hendlers/userHendlers');
 
 const initialState = {
-  token: '',
-  profile: null,
+  token: null,
+  profile: { name: null, email: null },
+  isLoggedIn: false,
+  isRefreshing: false,
 };
 
 const UserSlice = createSlice({
@@ -24,9 +26,18 @@ const UserSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(LogInThunk.fulfilled, handleLogIn)
+
       .addCase(SignUpThunk.fulfilled, handleSignUp)
+
       .addCase(LogOutThunk.fulfilled, handleLogOut)
-      .addCase(RefreshUserThunk.fulfilled, handleIsUser);
+      .addCase(RefreshUserThunk.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(RefreshUserThunk.fulfilled, handleRefreshUser)
+
+      .addCase(RefreshUserThunk.rejected, state => {
+        state.isRefreshing = false;
+      });
   },
 });
 
