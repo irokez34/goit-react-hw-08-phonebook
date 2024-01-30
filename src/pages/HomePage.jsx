@@ -1,5 +1,12 @@
+import { HomeModal } from 'components/HomeNoAuth/HomeModal';
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from 'store/Slice/selectors';
+
 const Home = () => {
-  return <div className="">Home</div>;
+  const isAuth = useSelector(selectIsAuth);
+
+  return !isAuth ? <HomeModal /> : <div>asd</div>;
+  // <HomeContent></HomeContent>
 };
 
 export default Home;
