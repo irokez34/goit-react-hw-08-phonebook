@@ -1,0 +1,35 @@
+/* contact-list.module.css */
+
+.contacts {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.item {
+  list-style: none;
+  padding: 10px;
+  color: aliceblue;
+  margin-bottom: 10px;
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(48, 20, 20, 0.8);
+}
+
+.item span {
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #c0392b;
+}

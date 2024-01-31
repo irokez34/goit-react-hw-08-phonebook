@@ -26,11 +26,57 @@
 .Modal {
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
-  /* Другие стили для вашего модального окна */
 }
 .info {
-  width: 500px;
-  height: 500px;
-  border: 2px solid red;
-  background-color: #999;
+  width: 400px;
+  height: 300px;
+  border-radius: 10%;
+  background-color: rgba(233, 233, 233, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  position: relative;
+}
+
+.modal_close {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  border-radius: 50%;
+  background-color: transparent;
+  border: transparent;
+}
+.head_text {
+  font-size: 30px;
+  margin-top: 25px;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+.text_info_app {
+  margin-bottom: 40px;
+  font-size: 20px;
+}
+.container_links {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  height: 30px;
+  margin-bottom: 50px;
+}
+.links {
+  font-size: 18px;
+  color: #8b4513;
+  transition: font-size 0.5s ease;
+}
+.links:hover {
+  font-size: 22px;
+}
+
+.text_info {
+  text-align: center;
+  color: rgba(000, 000, 000, 1);
+  font-size: 15px;
 }

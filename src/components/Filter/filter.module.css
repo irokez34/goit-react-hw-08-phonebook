@@ -1,0 +1,44 @@
+/* form-input.module.css */
+
+.form_filter {
+  position: relative;
+  margin-bottom: 20px;
+  width: 500px;
+}
+
+.form_input {
+  margin: 0 auto;
+  width: calc(100% - 20px); /* Уменьшаем ширину инпута */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form_input:focus {
+  border-color: #3498db;
+}
+
+.form_input {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для лейбла */
+.label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 14px; /* Уменьшаем размер шрифта лейбла */
+  color: #777;
+  pointer-events: none;
+  transition: top 0.3s, font-size 0.3s, color 0.3s;
+}
+
+.form_input:focus + .label {
+  top: 0;
+  font-size: 12px; 
+  color: #3498db;
+}

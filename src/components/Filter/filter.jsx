@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import './filter.css';
+import css from './filter.module.css'
 import { selectFilter } from 'store/Slice/selectors';
 import { filterContacts } from 'store/Slice/FilterSlice';
 const Filter = () => {
@@ -11,13 +11,14 @@ const Filter = () => {
   };
 
   return (
-    <div className="form-group ">
+    <div className={css.form_filter}>
       <input
-        className="form-field"
+        className={css.form_input}
         type="text"
         value={filter}
         onChange={filterContact}
       />
+      <label className={css.label}>Search Your Contact</label>
     </div>
   );
 };

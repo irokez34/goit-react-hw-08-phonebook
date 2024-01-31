@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './form-input.css';
+import css from './form-input.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewContactThunk } from 'store/thunk/thunk';
 import { selectContacts } from 'store/Slice/selectors';
@@ -36,33 +36,31 @@ const FormInput = () => {
     setNumber('');
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="input-container">
-        <div className="input-name">
+    <form onSubmit={handleSubmit} className={css.form}>
+      <div className={css.input_container}>
+        <div className={css.input_name}>
           <input
             type="text"
             name="name"
-            className="input-form"
+            className={css.input_form}
             value={name}
             onChange={handleChange}
             required
           />
-          <span className="bar"></span>
-          <label>Name</label>
+          <label className={css.label}>Name</label>
         </div>
-        <div className="input-number">
+        <div className={css.input_number}>
           <input
             type="tel"
             name="number"
-            className="input-form"
+            className={css.input_form}
             value={number}
             onChange={handleChange}
             required
           />
-          <span className="bar"></span>
-          <label>Number</label>
+          <label className={css.label}>Number</label>
         </div>
-        <button className="btn" type="submit">
+        <button className={css.button} type="submit">
           Add contact
         </button>
       </div>

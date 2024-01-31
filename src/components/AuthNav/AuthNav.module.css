@@ -3,10 +3,13 @@
   text-decoration: none;
   padding: 12px;
   font-weight: 700;
-  color: #2a363b;
+  color: #fff;
+
+  transition: background-color 0.5s ease ;
 }
 
-.link.active {
-  color: #e84a5f;
+.link:hover {
+  border-radius: 10%;
+  background-color: rgba(216, 198, 148, 0.452); 
 }
 

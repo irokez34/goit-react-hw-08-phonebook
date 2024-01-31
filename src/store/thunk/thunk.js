@@ -17,7 +17,6 @@ export const addNewContactThunk = createAsyncThunk(
   async (body, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/contacts', body);
-      console.log('work');
       return data;
     } catch (error) {
       return rejectWithValue(error); //error.message
@@ -76,7 +75,6 @@ export const SignUpThunk = createAsyncThunk(
       authHeader(data.token);
       return data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data); //error.message
     }
   }

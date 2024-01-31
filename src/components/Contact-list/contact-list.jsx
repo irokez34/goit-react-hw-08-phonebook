@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import './contact-list.css';
+import css from './contact-list.module.css';
 import NotificationMessage from 'components/notification-message/NotificationMessage';
 import { deleteContactThunk, getContactsThunk } from 'store/thunk/thunk';
 import { selectFilter, selectVisibleContacts } from 'store/Slice/selectors';
@@ -19,16 +19,22 @@ const ContactList = () => {
   }, [dispatch]);
 
   const contactlist = visibleContacts.map(({ id, name, number }) => (
-    <li className="item" key={id}>
-      <span>{name}</span>:<span> {number}</span>
-      <button type="button" onClick={() => deleteContact(id)}>
+    <li className={css.item} key={id}>
+      <span>
+        {name}: {number}
+      </span>
+      <button
+        type="button"
+        onClick={() => deleteContact(id)}
+        className={css.button}
+      >
         Delete
       </button>
     </li>
   ));
 
   return (
-    <div className="contacts">
+    <div className={css.contacts}>
       {visibleContacts.length === 0 ? (
         <NotificationMessage message={`No contact ${filter}`} />
       ) : (
